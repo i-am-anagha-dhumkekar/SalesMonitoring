@@ -1,0 +1,63 @@
+
+<div class="container">
+    <div class="header">
+        
+        <div class="form-control">
+            <!-- Search Functionality -->
+            <input class="form-control" type="text" placeholder="Search Sale.."
+            [(ngModel)]="term">
+            <input class="form-control" type="date" placeholder="Search Sale.."
+            [(ngModel)]="searchdate">
+        </div>
+        <div id="heading">
+            <h4 style="float:left;">Sales List</h4>
+            <!-- Add Employee -->
+            <a routerLink="/salesadd" class="btn btn-dark" 
+            style="float: right;">Add SalesVisit</a>
+        </div>
+        
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr >
+                <th>Visit Id</th>
+                <th>customerName</th>
+                <th>contactedP</th>
+                <th>contactNo</th>
+                <th>interestProduct</th>
+                <th>visitSub</th>
+                <th>description</th>
+                <th>visitdate</th>
+                <th>isDisabled</th>
+                <th>isDeleted</th>
+                <th>empId</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sale of salesService.salesvisits | filter:term | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td >{{sale.visitid}}</td>
+                <td >{{sale.customerName}}</td>
+                <td >{{sale.contactedP}}</td>
+                <td >{{sale.contactNo}}</td>
+                <td >{{sale.interestProduct}}</td>
+                <td >{{sale.visitSub}}</td>
+                <td >{{sale.description}}</td>
+                
+                <td >{{sale.visitdate| date:"dd/MM/yyyy"}}</td>
+                <td >{{sale.isDisabled}}</td>
+                <td >{{sale.isDeleted}}</td>
+                <td >{{sale.empId}}</td>
+                <td >
+                    <button class="btn btn-sm btn-info"
+                    (click)="updateSale(sale.visitid,sale)" >Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Footer -->
+    <div class="footer">
+        <!-- Pagination -->
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>
+
